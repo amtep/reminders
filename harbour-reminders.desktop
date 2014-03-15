@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Reminders
+Icon=harbour-reminders
+Exec=sailfish-qml harbour-reminders
+X-Nemo-Application-Type=silica-qt5
+X-MeeGo-Translation-Catalog=harbour-reminders

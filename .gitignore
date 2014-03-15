@@ -1,0 +1,6 @@
+Makefile
+harbour-reminders
+*.pro.user*
+*.o
+*.ts
+*.qm
