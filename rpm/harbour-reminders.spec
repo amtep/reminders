@@ -8,6 +8,7 @@ URL:        https://github.com/amtep/reminders
 Source0:    %{name}-%{version}.tar.bz2
 BuildRequires:  desktop-file-utils
 BuildRequires:  qt5-qmake
+Requires: libsailfishapp-launcher
 
 %description
 This application allows the user to schedule daily reminders for
