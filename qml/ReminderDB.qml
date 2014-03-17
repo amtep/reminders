@@ -109,11 +109,11 @@ Item {
                      VALUES (?, ?, ?, ?, ?, ?)",
                 [item.guid, item.title, item.description, item.dueDate,
                  item.logic, item.logicValue])
-        }
+        })
         if (filterDueDate && item.dueDate > today)
             return
         var index = 0
-        for (index < model.count; index++) {
+        for ( ; index < model.count; index++) {
             if (model.get(index).dueDate <= newDue)
                 break
         }
@@ -130,7 +130,7 @@ Item {
             model.remove(index)
         } else {
             var newIndex = 0
-            for (newIndex < model.count; newIndex++) {
+            for ( ; newIndex < model.count; newIndex++) {
                 if (newIndex == index)
                     continue
                 if (model.get(newIndex).dueDate <= newDue)
