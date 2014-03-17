@@ -7,7 +7,7 @@ CoverBackground {
     CoverPlaceholder {
         //: Coverpage text when db is empty
         text: qsTr("Reminders", "cover")
-        icon.source: "file:///usr/share/harbour-reminders/harbour-reminders"
+        icon.source: "file:///usr/share/icons/hicolor/86x86/apps/harbour-reminders"
         visible: db.model.count == 0
     }
 

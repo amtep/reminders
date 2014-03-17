@@ -7,6 +7,7 @@ License:    GPL-2
 URL:        https://github.com/amtep/reminders
 Source0:    %{name}-%{version}.tar.bz2
 BuildRequires:  desktop-file-utils
+BuildRequires:  qt5-qmake
 
 %description
 This application allows the user to schedule daily reminders for
@@ -33,5 +34,7 @@ desktop-file-install --delete-original       \
 
 %files
 %defattr(-,root,root,-)
-%{_datadir}/applications/*.desktop
+%{_bindir}/%{name}
+%{_datadir}/applications/%{name}.desktop
 %{_datadir}/%{name}/*
+%{_datadir}/icons/hicolor/86x86/apps/%{name}.png
