@@ -8,7 +8,7 @@ CoverBackground {
         //: Coverpage text when db is empty
         text: qsTr("Reminders", "cover")
         icon.source: "file:///usr/share/icons/hicolor/86x86/apps/harbour-reminders.png"
-        visible: db.model.count == 0
+        visible: !db || db.model.count == 0
     }
 
     GridView {
@@ -16,7 +16,7 @@ CoverBackground {
 
         anchors.fill: parent
         anchors.margins: Theme.paddingLarge
-        visible: db.model.count > 0
+        visible: db && db.model.count > 0
         clip: true
 
         model: db.model

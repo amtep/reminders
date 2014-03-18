@@ -44,19 +44,20 @@ Dialog {
     SilicaFlickable {
         anchors.fill: parent
 
+        DialogHeader { id: header }
+
         Column {
             id: column
+
+            anchors.top: header.bottom
+            width: parent.width
+            spacing: Theme.paddingMedium
 
             property int afterDays: 4
             property int weekDay
             property int monthDay
 
-            width: parent.width
-            spacing: Theme.paddingMedium
 
-            DialogHeader {
-                title: qsTr("Details")
-            }
             TextField {
                 id: titlefield
                 placeholderText: qsTr("Reminder", "title")
@@ -111,6 +112,7 @@ Dialog {
             Item {
                 id: logicvalueselector
                 visible: logicfield.currentIndex > 0
+                height: childrenRect.height
 
                 TextField {
                     visible: logicfield.currentIndex == 1

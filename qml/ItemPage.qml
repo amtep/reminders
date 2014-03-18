@@ -17,11 +17,6 @@ Dialog {
     SilicaFlickable {
         anchors.fill: parent
 
-        // The PullDownMenu doesn't work if contentHeight is left implicit.
-        // It also doesn't work if contentHeight ends up equal to the
-        // page height, so add some padding.
-        contentHeight: column.y + column.height
-
         PullDownMenu {
             id: pullmenu
             MenuItem {
@@ -47,16 +42,18 @@ Dialog {
             }
         }
 
+        DialogHeader {
+            id: header
+            title: qsTr("Done")
+        }
+
         Column {
             id: column
 
+            anchors.top: header.bottom
             width: parent.width
             spacing: theme.paddingMedium
 
-            DialogHeader {
-                title: qsTr("Reminder")
-                acceptText: qsTr("Done")
-            }
             Label {
                 id: titleLabel
 
