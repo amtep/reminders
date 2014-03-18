@@ -27,7 +27,7 @@ Page {
         delegate: ReminderListItem {
             id: reminderitem
 
-            onClicked: pageStack.push(ItemPage, { delegate: reminderitem })
+            onClicked: pageStack.push(itempage, { delegate: reminderitem })
 
             function deleteItem() {
                 //: Remorse item text
@@ -47,8 +47,18 @@ Page {
             MenuItem {
                 //: Menu item to create an editing page for a new note
                 text: qsTr("New Item", "menu")
-                onClicked: pageStack.push(DetailPage, { isNew: true })
+                onClicked: pageStack.push(detailpage, { isNew: true })
             }
         }
+    }
+
+    Component {
+        id: itempage
+        ItemPage { }
+    }
+
+    Component {
+        id: detailpage
+        DetailPage { }
     }
 }

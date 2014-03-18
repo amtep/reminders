@@ -43,7 +43,7 @@ Dialog {
             }
             MenuItem {
                 text: qsTr("Edit", "menu")
-                onClicked: pageStack.push(DetailPage, { delegate: delegate })
+                onClicked: pageStack.push(detailpage, { delegate: delegate })
             }
         }
 
@@ -87,5 +87,10 @@ Dialog {
             }
         }
         VerticalScrollDecorator {}
+    }
+
+    Component {
+        id: detailpage
+        DetailPage { }
     }
 }
