@@ -3,11 +3,11 @@ import QtQuick.LocalStorage 2.0 as Sql
 import Sailfish.Silica 1.0
 
 Item {
-    property ListModel model
+    property ListModel model: ListModel { }
     property bool filterDueDate: true
     onFilterDueDateChanged: populateModel()
 
-    property variant _db
+    property var _db
 
     // Create and return a string GUID according to RFC 4122
     // (the pseudo-random variant).
@@ -43,23 +43,22 @@ Item {
         if (_db.version == '') {
             _db.changeVersion('', '1', function (tx) {
                 tx.executeSql(
-                    "CREATE TABLE reminders (
-                        guid TEXT PRIMARY KEY,
-                        title TEXT NOT NULL,
-                        description TEXT NOT NULL,
-                        due TEXT NOT NULL,
-                        logic TEXT NOT NULL,
-                        logic_value INT NOT NULL)"
+                    "CREATE TABLE reminders ("
+                    + "guid TEXT PRIMARY KEY, "
+                    + "title TEXT NOT NULL, "
+                    + "description TEXT NOT NULL, "
+                    + "due TEXT NOT NULL, "
+                    + "logic TEXT NOT NULL, "
+                    + "logic_value INT NOT NULL)"
                 )
                 tx.executeSql(
-                    "CREATE INDEX reminders_due
-                        ON reminders (due)"
+                    "CREATE INDEX reminders_due ON reminders (due)"
                 )
                 tx.executeSql(
-                    "CREATE TABLE history (
-                        reminder_guid TEXT NOT NULL
-                            REFERENCES reminders (guid) ON DELETE CASCADE,
-                        done_date TEXT NOT NULL)"
+                    "CREATE TABLE history ("
+                    + "reminder_guid TEXT NOT NULL "
+                    + "REFERENCES reminders (guid) ON DELETE CASCADE, "
+                    + "done_date TEXT NOT NULL)"
                 )
             });
             // The version change is not reflected in _db (which may
@@ -76,7 +75,7 @@ Item {
         _db.readTransaction(function (tx) {
             model.clear()
             var r = tx.executeSql(query)
-            for (var i = 0; r.rows.item(i) !== null; i++) {
+            for (var i = 0; i < r.rows.length; i++) {
                 var item = r.rows.item(i)
                 model.append({
                     "guid": item.guid,
@@ -104,9 +103,9 @@ Item {
         item.guid = genGuid()
         _db.transaction(function (tx) {
             tx.executeSql(
-                "INSERT INTO reminders
-                     (guid, title, description, due, logic, logic_value)
-                     VALUES (?, ?, ?, ?, ?, ?)",
+                "INSERT INTO reminders "
+                + "(guid, title, description, due, logic, logic_value) "
+                + "VALUES (?, ?, ?, ?, ?, ?)",
                 [item.guid, item.title, item.description, item.dueDate,
                  item.logic, item.logicValue])
         })
@@ -190,11 +189,11 @@ Item {
         _db.readTransaction(function (tx) {
             h_model.clear()
             var r = tx.executeSql(
-                "SELECT done_date FROM history
-                 WHERE reminder_guid = ?
-                 ORDER BY done_date DESC",
-                 [guid])
-            for (var i = 0; r.rows.item(i) !== null; i++) {
+                "SELECT done_date FROM history "
+                + "WHERE reminder_guid = ? "
+                + "ORDER BY done_date DESC",
+                [guid])
+            for (var i = 0; i < r.rows.length; i++) {
                 var item = r.rows.item(i)
                 h_model.append({
                     "doneDate": new Date(item.done_date),

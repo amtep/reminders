@@ -8,8 +8,5 @@ ApplicationWindow
     cover: Qt.resolvedUrl("CoverPage.qml")
     _defaultPageOrientations: Orientation.Portrait | Orientation.Landscape
 
-    Component {
-        id: db
-        ReminderDB { }
-    }
+    ReminderDB { id: db }
 }
