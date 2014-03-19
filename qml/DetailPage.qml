@@ -10,7 +10,7 @@ Dialog {
 
     property alias title: titlefield.text
     property alias description: descfield.text
-    property alias dueDate: datefield.date
+    property alias dueDate: datefield.dueDate
 
     onAccepted: {
         var item = {
@@ -185,9 +185,19 @@ Dialog {
                 placeholderText: qsTr("Further description", "placeholder")
                 font.pixelSize: Theme.fontSizeMedium
             }
-            Item {
-                Label { text: qsTr("Next due date:") }
-                DatePicker { id: datefield }
+            ValueButton {
+                id: datefield
+                property date dueDate
+
+                label: qsTr("Next due date")
+                value: Qt.formatDate(dueDate, Qt.DefaultLocaleShortDate)
+
+                onClicked: {
+                    var dialog = pageStack.push("Sailfish.Silica.DatePickerDialog")
+                    dialog.accepted.connect(function() {
+                        dueDate = dialog.date
+                    })
+                }
             }
         }
         VerticalScrollDecorator {}
