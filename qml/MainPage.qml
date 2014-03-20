@@ -27,6 +27,9 @@ Page {
         delegate: ReminderListItem {
             id: reminderitem
 
+            // the ItemPage and DetailPage bind to this
+            property int index: model.index
+
             onClicked: pageStack.push(itempage, { delegate: reminderitem })
 
             function deleteItem() {

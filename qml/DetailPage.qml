@@ -187,7 +187,7 @@ Dialog {
             }
             ValueButton {
                 id: datefield
-                property date dueDate
+                property date dueDate: new Date()
 
                 label: qsTr("Next due date")
                 value: Qt.formatDate(dueDate, Qt.DefaultLocaleShortDate)

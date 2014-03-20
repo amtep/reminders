@@ -52,24 +52,27 @@ Dialog {
 
             anchors.top: header.bottom
             width: parent.width
-            spacing: theme.paddingMedium
+            spacing: Theme.paddingMedium
 
             Label {
                 id: titleLabel
 
-                text: delegate.title
+                text: db.model.get(delegate.index).title
                 font.pixelSize: Theme.fontSizeLarge
             }
             Label {
                 text: qsTr("Due: ") + duecalc.text
 
-                DueCalc { id: duecalc; dueDate: delegate.dueDate }
+                DueCalc {
+                    id: duecalc;
+                    dueDate: db.model.get(delegate.index).dueDate
+                }
             }
             Label {
                 id: descLabel
                 width: parent.width
 
-                text: delegate.description
+                text: db.model.get(delegate.index).description
                 font.pixelSize: Theme.fontSizeSmall
             }
             Label {
