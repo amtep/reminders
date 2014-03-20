@@ -64,7 +64,7 @@ Dialog {
                 text: qsTr("Due: ") + duecalc.text
 
                 DueCalc {
-                    id: duecalc;
+                    id: duecalc
                     dueDate: db.model.get(delegate.index).dueDate
                 }
             }
@@ -76,10 +76,12 @@ Dialog {
                 font.pixelSize: Theme.fontSizeSmall
             }
             Label {
+                id: historylabel
                 text: qsTr("History")
             }
             ColumnView {
                 model: db.historyModel(delegate.index)
+                itemHeight: historylabel.height
                 delegate: Label {
                     text: model.doneDate
                     horizontalAlignment: Text.AlignHCenter
