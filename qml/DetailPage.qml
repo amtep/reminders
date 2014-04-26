@@ -3,7 +3,7 @@ import Sailfish.Silica 1.0
 import Sailfish.Silica.theme 1.0
 
 Dialog {
-    id: detailpage
+    id: page
 
     property bool isNew
     property Item delegate   // not used if isNew
@@ -38,7 +38,7 @@ Dialog {
 
     Connections {
         target: delegate
-        ListView.onRemove: itempage.close()
+        ListView.onRemove: page.close()
     }
 
     SilicaFlickable {
@@ -60,6 +60,7 @@ Dialog {
 
             TextField {
                 id: titlefield
+                width: column.width
                 placeholderText: qsTr("Reminder", "title")
                 label: qsTr("Title")
                 font.pixelSize: Theme.fontSizeLarge
@@ -67,9 +68,11 @@ Dialog {
             ComboBox {
                 id: logicfield
 
+                width: column.width
+
                 //: This is the label for a combobox that continues
                 //: with values like "daily", "after X days", "on weekday"
-                label: qsTr("Return", "logic")
+                label: qsTr("Remind again", "logic")
 
                 menu: ContextMenu {
                     MenuItem {
@@ -112,10 +115,12 @@ Dialog {
             Item {
                 id: logicvalueselector
                 visible: logicfield.currentIndex > 0
+                width: column.width
                 height: childrenRect.height
 
                 TextField {
                     visible: logicfield.currentIndex == 1
+                    width: parent.width
                     label: qsTr("days", "label")
                     validator: IntValidator { bottom: 1 }
                     onTextChanged: {
@@ -182,8 +187,10 @@ Dialog {
             }
             TextArea {
                 id: descfield
-                placeholderText: qsTr("Further description", "placeholder")
+                width: column.width
+                placeholderText: qsTr("Optional description", "placeholder")
                 font.pixelSize: Theme.fontSizeMedium
+                height: font.pixelSize * 5
             }
             ValueButton {
                 id: datefield
