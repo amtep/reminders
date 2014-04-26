@@ -61,14 +61,12 @@ Dialog {
             TextField {
                 id: titlefield
                 width: column.width
-                placeholderText: qsTr("Reminder", "title")
-                label: qsTr("Title")
+                placeholderText: qsTr("Type a reminder", "placeholder")
+                label: qsTr("Title", "label")
                 font.pixelSize: Theme.fontSizeLarge
             }
             ComboBox {
                 id: logicfield
-
-                width: column.width
 
                 //: This is the label for a combobox that continues
                 //: with values like "daily", "after X days", "on weekday"
@@ -101,13 +99,16 @@ Dialog {
                     if (logic == "recur" && value == 1) {
                         currentIndex = 0
                     } else if (logic == "recur") {
-                        afterDays = value
+                        column.afterDays = value
+                        recurvaluefield.text = value
                         currentIndex = 1
                     } else if (logic == "weekly") {
-                        weekDay = value
+                        column.weekDay = value
+                        weeklyvaluefield.currentIndex = value
                         currentIndex = 2
                     } else if (logic == "monthly") {
-                        monthDay = value
+                        column.monthDay = value
+                        monthlyvaluefield.currentIndex = value - 1
                         currentIndex = 3
                     }
                 }
@@ -115,20 +116,21 @@ Dialog {
             Item {
                 id: logicvalueselector
                 visible: logicfield.currentIndex > 0
-                width: column.width
                 height: childrenRect.height
 
                 TextField {
+                    id: recurvaluefield
                     visible: logicfield.currentIndex == 1
                     width: parent.width
                     label: qsTr("days", "label")
                     validator: IntValidator { bottom: 1 }
                     onTextChanged: {
                         if (acceptableInput)
-                            afterDays = parseInt(text, 10)
+                            column.afterDays = parseInt(text, 10)
                     }
                 }
                 ComboBox {
+                    id: weeklyvaluefield
                     visible: logicfield.currentIndex == 2
                     menu: ContextMenu {
                         MenuItem { text: qsTr("on Sunday") }
@@ -141,10 +143,11 @@ Dialog {
                     }
                     onCurrentIndexChanged: {
                         if (currentIndex >= 0)
-                            weekDay = currentIndex
+                            column.weekDay = currentIndex
                     }
                 }
                 ComboBox {
+                    id: monthlyvaluefield
                     visible: logicfield.currentIndex == 3
                     menu: ContextMenu {
                         MenuItem { text: qsTr("on the 1st") }
@@ -181,16 +184,16 @@ Dialog {
                     }
                     onCurrentIndexChanged: {
                         if (currentIndex >= 0)
-                            monthDay = currentIndex + 1
+                            column.monthDay = currentIndex + 1
                     }
                 }
             }
             TextArea {
                 id: descfield
                 width: column.width
-                placeholderText: qsTr("Optional description", "placeholder")
-                font.pixelSize: Theme.fontSizeMedium
-                height: font.pixelSize * 5
+                placeholderText: qsTr("Add an optional description")
+                label: qsTr("Description", "label")
+                font.pixelSize: Theme.fontSizeSmall
             }
             ValueButton {
                 id: datefield
