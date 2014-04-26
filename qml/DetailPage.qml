@@ -36,6 +36,8 @@ Dialog {
         }
     }
 
+    canAccept: titlefield.acceptableInput && recurvaluefield.acceptableInput
+
     Connections {
         target: delegate
         ListView.onRemove: page.close()
@@ -64,6 +66,7 @@ Dialog {
                 placeholderText: qsTr("Type a reminder", "placeholder")
                 label: qsTr("Title", "label")
                 font.pixelSize: Theme.fontSizeLarge
+                validator: RegExpValidator { regExp: /./ } // any non-empty
             }
             ComboBox {
                 id: logicfield
